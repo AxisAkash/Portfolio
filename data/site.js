@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
   company: 'IBCS-Primax Software (Bangladesh) Ltd.',
   companyShort: 'IBCS-Primax',
   availability: 'Open to thoughtful software engineering conversations',
-  resumePath: null,
+  resumePath: 'assets/Rakibul_Islam_Akash_CV.pdf',
   formEndpoint: null,
   optional: {
     hindi: false,
