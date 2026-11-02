@@ -1,0 +1,53 @@
+:root {
+  color-scheme: dark;
+  --ink: oklch(0.94 0.012 95);
+  --ink-soft: oklch(0.76 0.014 95);
+  --ink-faint: oklch(0.61 0.015 95);
+  --paper: oklch(0.16 0.018 95);
+  --paper-raised: oklch(0.195 0.018 95);
+  --paper-deep: oklch(0.125 0.014 95);
+  --line: oklch(0.94 0.012 95 / 0.16);
+  --line-strong: oklch(0.94 0.012 95 / 0.3);
+  --accent: oklch(0.82 0.13 155);
+  --accent-ink: oklch(0.18 0.04 155);
+  --accent-soft: oklch(0.82 0.13 155 / 0.12);
+  --danger: oklch(0.72 0.16 25);
+  --serif: 'Instrument Serif', 'Iowan Old Style', 'Baskerville', Georgia, serif;
+  --sans: 'DM Sans', 'Inter', 'Segoe UI', Arial, sans-serif;
+  --mono: 'DM Mono', 'SFMono-Regular', Consolas, monospace;
+  --size-xs: 0.6875rem;
+  --size-sm: 0.8125rem;
+  --size-body: clamp(0.95rem, 0.15vw + 0.9rem, 1.05rem);
+  --size-lead: clamp(1.15rem, 1.1vw + 0.9rem, 1.55rem);
+  --size-h2: clamp(2.8rem, 7vw, 7rem);
+  --size-h3: clamp(1.3rem, 1vw + 1rem, 1.8rem);
+  --size-hero: clamp(4.45rem, 14.2vw, 15.25rem);
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+  --space-8: 8rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --header-height: 4.5rem;
+  --frame: min(100% - 2rem, 88rem);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ink: oklch(0.19 0.018 95);
+  --ink-soft: oklch(0.28 0.02 95);
+  --ink-faint: oklch(0.28 0.018 95);
+  --paper: oklch(0.965 0.012 95);
+  --paper-raised: oklch(1 0 0);
+  --paper-deep: oklch(0.925 0.015 95);
+  --line: oklch(0.19 0.018 95 / 0.16);
+  --line-strong: oklch(0.19 0.018 95 / 0.3);
+  --accent: oklch(0.28 0.11 155);
+  --accent-ink: oklch(0.97 0.02 155);
+  --accent-soft: oklch(0.53 0.14 155 / 0.12);
+  --danger: oklch(0.55 0.18 25);
+}
