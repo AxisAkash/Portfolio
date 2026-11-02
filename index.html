@@ -26,7 +26,9 @@
     <link rel="manifest" href="site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" />
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&display=swap" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&display=swap" /></noscript>
     <script>
       (() => {
         const saved = localStorage.getItem('ak-theme');
@@ -70,6 +72,7 @@
               <p class="eyebrow reveal">Software engineer <span class="accent-slash">/</span> builder</p>
               <h1 id="hero-title" class="hero-title" data-reveal-lines><span>Rakibul</span><span>Islam <em>Akash</em></span></h1>
               <p class="hero-subtitle reveal">Software engineer building secure, role-based full-stack and mobile products.</p>
+              <p class="hero-currently reveal">Currently at IBCS-Primax, Dhaka.</p>
               <div class="hero-ctas reveal"><a class="button button-primary magnetic" href="#work">View selected work <span aria-hidden="true">↘</span></a><a class="button button-secondary" data-resume hidden>Download résumé <span aria-hidden="true">↓</span></a></div>
               <div class="hero-links reveal"><a data-github target="_blank" rel="noreferrer">GitHub ↗</a><a data-linkedin target="_blank" rel="noreferrer">LinkedIn ↗</a><a data-email>Email ↗</a></div>
             </div>

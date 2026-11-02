@@ -56,6 +56,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero-title span { display: block; }
 .hero-title em, .section-heading em, .error-card em { color: var(--accent); font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.07em; }
 .hero-subtitle { max-width: 36rem; margin-top: clamp(2rem, 4vw, 4.5rem); color: var(--ink-soft); font-size: var(--size-lead); line-height: 1.35; }
+.hero-currently { margin-top: 0.75rem; color: var(--ink-faint); font-family: var(--mono); font-size: var(--size-xs); }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2rem; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.4rem; font-family: var(--mono); font-size: var(--size-xs); text-transform: uppercase; }
 .hero-now { grid-column: 10 / -1; align-self: end; padding: 1rem 0 0 1.25rem; border-left: 1px solid var(--line-strong); }
