@@ -185,7 +185,16 @@ function setupNavigation() {
   toggle.addEventListener('click', () => setMenu(menu.hidden));
   closeButton.addEventListener('click', () => setMenu(false));
   $$('a', menu).forEach((link) => link.addEventListener('click', () => setMenu(false)));
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !menu.hidden) setMenu(false); });
+  document.addEventListener('keydown', (event) => {
+    if (menu.hidden) return;
+    if (event.key === 'Escape') { setMenu(false); return; }
+    if (event.key !== 'Tab') return;
+    const focusable = $$('button, a[href]', menu);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
 }
 
 function setupMotion() {
