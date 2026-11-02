@@ -68,6 +68,12 @@ function setupIdentity() {
   $$('[data-mailto]').forEach((element) => { element.href = `mailto:${SITE_CONFIG.email}`; });
   const resume = $('[data-resume]');
   if (SITE_CONFIG.resumePath) { resume.hidden = false; resume.href = SITE_CONFIG.resumePath; resume.download = ''; }
+  const optional = $('[data-optional-sections]');
+  const optionalItems = [];
+  if (SITE_CONFIG.optional.hindi) optionalItems.push('<span>Spoken language · Hindi</span>');
+  if (SITE_CONFIG.optional.dockerCi) optionalItems.push('<span>Currently exploring Docker & CI/CD</span>');
+  if (SITE_CONFIG.optional.research) optionalItems.push('<span>Research interest · AI companions and student emotional decision-making</span>', '<span>Research interest · Adolescent anxiety and parent–child communication in South Asia</span>');
+  if (optionalItems.length) { optional.hidden = false; optional.innerHTML = optionalItems.join(''); }
   setText('[data-year]', new Date().getFullYear());
 }
 

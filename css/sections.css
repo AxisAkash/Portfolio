@@ -42,6 +42,8 @@
 .bento-note { grid-column: 7 / -1; min-height: 11rem; display: flex; flex-direction: column; justify-content: space-between; background: var(--accent); color: var(--accent-ink); }
 .bento-note .mono-label { color: var(--accent-ink); opacity: 0.7; }
 .bento-note p { max-width: 17ch; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3rem); font-style: italic; line-height: 0.95; }
+.bento-optional { grid-column: 1 / -1; color: var(--ink-soft); font-family: var(--mono); font-size: var(--size-xs); }
+.bento-optional span { display: inline-block; margin: 0 0.35rem 0.35rem 0; padding: 0.4rem 0.55rem; border: 1px solid var(--line); }
 .experience { padding-top: var(--space-8); }
 .timeline { max-width: 60rem; margin-left: 25%; border-top: 1px solid var(--line); }
 .timeline-item { display: grid; grid-template-columns: 9rem 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
