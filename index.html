@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11110f" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="description" content="Software engineer building secure, role-based full-stack and mobile products." />
+    <meta name="keywords" content="Rakibul Islam Akash, software engineer, full-stack, mobile, backend, Dhaka" />
+    <meta name="author" content="Rakibul Islam Akash" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rakibul Islam Akash — Software Engineer" />
+    <meta property="og:description" content="Software engineer building secure, role-based full-stack and mobile products." />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rakibul Islam Akash — Software Engineer" />
+    <meta name="twitter:description" content="Software engineer building secure, role-based full-stack and mobile products." />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" data-canonical href="" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <script>
+      (() => {
+        const saved = localStorage.getItem('ak-theme');
+        const system = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.dataset.theme = saved || (system ? 'light' : 'dark');
+      })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+    <title>Rakibul Islam Akash — Software Engineer</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-shell">
+      <header class="site-header" data-header>
+        <a class="wordmark" href="index.html" aria-label="RA Akash home"><span>RA</span><span class="wordmark-name">Akash</span></a>
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="#work">Work</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" aria-label="Switch to light theme" data-theme-toggle><span aria-hidden="true">◐</span><span class="theme-toggle-label">Theme</span></button>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle><span>Menu</span><span class="menu-icon" aria-hidden="true"><i></i><i></i></span></button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
+          <div class="mobile-menu-top"><span class="mono-label">Navigate</span><button type="button" data-menu-close aria-label="Close menu">Close <span aria-hidden="true">×</span></button></div>
+          <nav aria-label="Mobile navigation"><a href="#work">Work <span>01</span></a><a href="#about">About <span>02</span></a><a href="#experience">Experience <span>03</span></a><a href="#contact">Contact <span>04</span></a></nav>
+          <p class="mobile-menu-note">Software engineer in Dhaka, building systems with clear boundaries.</p>
+        </div>
+      </header>
+
+      <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+      <aside class="section-index" aria-label="Section index"><a href="#hero" data-index-link="hero">00 <span>Intro</span></a><a href="#work" data-index-link="work">01 <span>Work</span></a><a href="#about" data-index-link="about">02 <span>About</span></a><a href="#experience" data-index-link="experience">03 <span>Experience</span></a><a href="#contact" data-index-link="contact">04 <span>Contact</span></a></aside>
+
+      <main id="main-content">
+        <section class="hero section-frame" id="hero" aria-labelledby="hero-title">
+          <div class="hero-grid">
+            <div class="hero-kicker reveal"><span class="status-dot"></span><span>Available for meaningful work</span><span class="mono-label">Dhaka / BD</span></div>
+            <div class="hero-copy">
+              <p class="eyebrow reveal">Software engineer <span class="accent-slash">/</span> builder</p>
+              <h1 id="hero-title" class="hero-title" data-reveal-lines><span>Rakibul</span><span>Islam <em>Akash</em></span></h1>
+              <p class="hero-subtitle reveal">Software engineer building secure, role-based full-stack and mobile products.</p>
+              <div class="hero-ctas reveal"><a class="button button-primary magnetic" href="#work">View selected work <span aria-hidden="true">↘</span></a><a class="button button-secondary" data-resume hidden>Download résumé <span aria-hidden="true">↓</span></a></div>
+              <div class="hero-links reveal"><a data-github target="_blank" rel="noreferrer">GitHub ↗</a><a data-linkedin target="_blank" rel="noreferrer">LinkedIn ↗</a><a data-email>Email ↗</a></div>
+            </div>
+            <div class="hero-now reveal"><div class="now-header"><span class="mono-label">Now</span><span class="now-line"></span><span class="now-pulse"></span></div><p>Intern @ <strong>IBCS-Primax</strong><br /><span data-dhaka-time>00:00:00 GMT+6</span></p><p class="availability" data-availability></p></div>
+          </div>
+          <div class="hero-foot"><span class="mono-label">Scroll to inspect the systems</span><span class="hero-mark" aria-hidden="true">↘</span></div>
+        </section>
+
+        <section class="work section-frame" id="work" aria-labelledby="work-title">
+          <div class="section-heading reveal"><div class="section-index-label"><span>01</span><span class="heading-line"></span><span>Selected work</span></div><h2 id="work-title">Products with <em>structure.</em></h2><p>Projects where the interesting part is not the screen. It is the boundary between roles, data, and decisions.</p></div>
+          <div class="project-grid" data-projects></div>
+        </section>
+
+        <section class="about section-frame" id="about" aria-labelledby="about-title">
+          <div class="section-heading reveal"><div class="section-index-label"><span>02</span><span class="heading-line"></span><span>About</span></div><h2 id="about-title">Clear systems.<br /><em>Useful outcomes.</em></h2></div>
+          <div class="about-bento">
+            <article class="bento-card bento-intro reveal"><span class="card-number">A / 01</span><p>I work across product surfaces and the systems underneath them: mobile interfaces, backend APIs, data models, and the permission boundaries that make them reliable.</p><p class="muted">Currently learning in public through real product work at IBCS-Primax and through my CSE degree at AIUB.</p></article>
+            <article class="bento-card bento-identity reveal"><span class="monogram" aria-hidden="true">RA</span><div><span class="mono-label">Based in</span><strong>Dhaka, Bangladesh</strong></div><div><span class="mono-label">Languages</span><strong>Bengali <small>native</small> · English <small>fluent</small></strong></div></article>
+            <article class="bento-card bento-principles reveal"><span class="card-number">A / 02</span><ul><li>Model the roles before the screens.</li><li>Keep access explicit.</li><li>Ship the smallest coherent system.</li></ul></article>
+            <article class="bento-card bento-note reveal"><span class="mono-label">Working note</span><p>Good engineering makes the next decision easier to see.</p></article>
+          </div>
+        </section>
+
+        <section class="experience section-frame" id="experience" aria-labelledby="experience-title">
+          <div class="section-heading reveal"><div class="section-index-label"><span>03</span><span class="heading-line"></span><span>Experience & education</span></div><h2 id="experience-title">The work <em>behind</em><br />the work.</h2></div>
+          <div class="timeline"><article class="timeline-item reveal"><div class="timeline-meta"><span class="mono-label">Sep 2026 — Present</span><span class="timeline-dot"></span></div><div class="timeline-content"><h3>Software Engineer Intern</h3><p class="timeline-company">IBCS-Primax Software (Bangladesh) Ltd. <span>· Dhaka</span></p><p>Building backend web solutions alongside senior engineers through coding, debugging, code reviews, unit testing, technical documentation, feature implementation, and troubleshooting.</p><div class="tag-row"><span>Backend</span><span>Code reviews</span><span>Testing</span></div></div></article><article class="timeline-item education-item reveal"><div class="timeline-meta"><span class="mono-label">2023 — Present</span><span class="timeline-dot"></span></div><div class="timeline-content"><h3>B.Sc. Computer Science & Engineering</h3><p class="timeline-company">American International University-Bangladesh <span>· GPA 3.38 / 4.00</span></p><p class="coursework">Data Structures & Algorithms, OOP, Computer Architecture, Operating Systems & System Programming, DBMS, Software Engineering, Software Requirements Engineering, Artificial Intelligence, Software Testing & QA, Software Project Management, Mobile App Development, Computer Vision & Pattern Recognition.</p></div></article><article class="timeline-item education-compact reveal"><div class="timeline-meta"><span class="mono-label">2019 — 2022</span><span class="timeline-dot"></span></div><div class="timeline-content"><h3>HSC <span>· Science</span></h3><p class="timeline-company">Govt. Yeasin College, Faridpur <span>· GPA 5.00 / 5.00</span></p></div></article><article class="timeline-item education-compact reveal"><div class="timeline-meta"><span class="mono-label">2017 — 2019</span><span class="timeline-dot"></span></div><div class="timeline-content"><h3>SSC <span>· Science</span></h3><p class="timeline-company">Faridpur Zilla School <span>· GPA 4.89 / 5.00</span></p></div></article></div>
+        </section>
+
+        <section class="skills section-frame" aria-labelledby="skills-title"><div class="section-heading reveal"><div class="section-index-label"><span>04</span><span class="heading-line"></span><span>Capability map</span></div><h2 id="skills-title">Tools for making<br /><em>things hold.</em></h2></div><div class="skills-grid"><article class="skill-group reveal"><span class="skill-index">01</span><h3>Backend & data</h3><p>Express.js, PHP (MVC), MySQL, SQL Server, Supabase/PostgreSQL, authentication, RBAC, session management, prepared statements.</p></article><article class="skill-group reveal"><span class="skill-index">02</span><h3>Mobile</h3><p>React, React Native, Expo.</p></article><article class="skill-group reveal"><span class="skill-index">03</span><h3>AI</h3><p>TensorFlow, NLP basics, prompt engineering, AI-assisted development, debugging, and refactoring.</p></article><article class="skill-group reveal"><span class="skill-index">04</span><h3>Languages</h3><p>C++, Java, C#, SQL, PHP, JavaScript, Python, TypeScript via SOFOL.</p></article><article class="skill-group reveal"><span class="skill-index">05</span><h3>Tooling</h3><p>Git, GitHub, GitLab.</p></article><article class="skill-group skill-quote reveal"><span class="quote-mark">“</span><p>Build the boundary first. The interface follows.</p></article></div></section>
+
+        <section class="contact section-frame" id="contact" aria-labelledby="contact-title"><div class="section-heading reveal"><div class="section-index-label"><span>05</span><span class="heading-line"></span><span>Contact</span></div><h2 id="contact-title">Have a real<br /><em>problem to solve?</em></h2><p>Send a note about the product, the constraint, or the question. I read everything.</p></div><div class="contact-layout reveal"><div class="contact-aside"><span class="mono-label">Direct line</span><a class="contact-email" data-email></a><p>Prefer a short message over a polished pitch.</p><div class="contact-actions"><a class="button button-primary" data-mailto>Write an email <span aria-hidden="true">↗</span></a><button class="button button-secondary copy-button" type="button" data-copy-email>Copy email <span aria-hidden="true">⧉</span></button><span class="copy-status" aria-live="polite" data-copy-status></span></div></div><div class="contact-form-wrap" data-contact-area></div></div></section>
+      </main>
+
+      <footer class="site-footer"><div class="footer-top"><a class="wordmark" href="index.html"><span>RA</span><span class="wordmark-name">Akash</span></a><p>Software engineer building systems with clear boundaries.</p><a class="back-top" href="#hero">Back to top <span aria-hidden="true">↑</span></a></div><div class="footer-bottom"><span>© <span data-year></span> Rakibul Islam Akash</span><span>Built from scratch · no framework · GitHub Pages</span><span>Fonts: Instrument Serif / DM Sans / DM Mono</span></div></footer>
+    </div>
+    <div class="dialog-layer" data-dialog-layer></div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
