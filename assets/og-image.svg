@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#11110f"/>
+  <path d="M72 74h1056M72 556h1056" stroke="#f2f0e9" stroke-opacity=".22"/>
+  <text x="72" y="126" fill="#8ce2b3" font-family="monospace" font-size="20" letter-spacing="3">RA / SOFTWARE ENGINEER</text>
+  <text x="72" y="300" fill="#f2f0e9" font-family="Georgia,serif" font-size="124" letter-spacing="-7">Rakibul</text>
+  <text x="72" y="416" fill="#f2f0e9" font-family="Georgia,serif" font-size="124" letter-spacing="-7">Islam <tspan fill="#8ce2b3" font-style="italic">Akash</tspan></text>
+  <text x="72" y="510" fill="#bcbab2" font-family="Arial,sans-serif" font-size="25">Secure, role-based full-stack and mobile products.</text>
+  <text x="1128" y="126" text-anchor="end" fill="#bcbab2" font-family="monospace" font-size="18">DHAKA / BD</text>
+</svg>

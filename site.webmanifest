@@ -1,0 +1,14 @@
+{
+  "name": "Rakibul Islam Akash — Software Engineer",
+  "short_name": "Akash",
+  "start_url": "./",
+  "scope": "./",
+  "display": "minimal-ui",
+  "background_color": "#11110f",
+  "theme_color": "#11110f",
+  "description": "Software engineer building secure, role-based full-stack and mobile products.",
+  "icons": [
+    { "src": "assets/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
