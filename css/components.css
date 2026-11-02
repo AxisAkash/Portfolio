@@ -36,6 +36,7 @@ dialog::backdrop { background: rgb(10 10 9 / 0.75); backdrop-filter: blur(4px); 
 .form-status { min-height: 1.5rem; margin-top: 0.8rem; font-family: var(--mono); font-size: var(--size-xs); }
 .form-status.success { color: var(--accent); }
 .form-status.error { color: var(--danger); }
+.clipboard-fallback { position: fixed; left: -9999px; opacity: 0; }
 .error-card { width: min(100% - 2rem, 44rem); margin: 14vh auto; padding: clamp(2rem, 7vw, 6rem); border: 1px solid var(--line); }
 .error-card h1 { margin-top: 2rem; font-size: clamp(4rem, 12vw, 9rem); font-weight: 400; letter-spacing: -0.09em; line-height: 0.8; }
 .error-card p { max-width: 33ch; margin: 2rem 0; color: var(--ink-soft); }

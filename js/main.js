@@ -141,8 +141,21 @@ function setupContact() {
   const copyButton = $('[data-copy-email]');
   const status = $('[data-copy-status]');
   copyButton.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(SITE_CONFIG.email); status.textContent = 'Email copied'; }
-    catch { status.textContent = 'Select the email above to copy'; }
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(SITE_CONFIG.email);
+      else throw new Error('Clipboard API unavailable');
+      status.textContent = 'Email copied';
+    } catch {
+      const fallback = document.createElement('textarea');
+      fallback.value = SITE_CONFIG.email;
+      fallback.className = 'clipboard-fallback';
+      fallback.setAttribute('readonly', '');
+      document.body.append(fallback);
+      fallback.select();
+      const copied = document.execCommand('copy');
+      fallback.remove();
+      status.textContent = copied ? 'Email copied' : 'Select the email above to copy';
+    }
     window.setTimeout(() => { status.textContent = ''; }, 2500);
   });
   if (!SITE_CONFIG.formEndpoint) {
