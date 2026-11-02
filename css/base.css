@@ -20,6 +20,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .mono-label { color: var(--ink-faint); font-family: var(--mono); font-size: var(--size-xs); letter-spacing: 0.08em; line-height: 1.3; text-transform: uppercase; }
 .muted { color: var(--ink-soft); }
 .accent-slash { color: var(--accent); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .skip-link { position: fixed; z-index: 100; top: 0.75rem; left: 1rem; padding: 0.7rem 1rem; transform: translateY(-180%); background: var(--accent); color: var(--accent-ink); font-weight: 700; transition: transform 180ms var(--ease-out); }
 .skip-link:focus { transform: translateY(0); }
 .site-header { position: sticky; z-index: 10; top: 0; display: flex; align-items: center; justify-content: space-between; width: var(--frame); height: var(--header-height); margin: 0 auto; border-bottom: 1px solid var(--line); background: color-mix(in oklab, var(--paper) 92%, transparent); }

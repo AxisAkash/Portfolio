@@ -1,5 +1,6 @@
 import { SITE_CONFIG, SITE_META, baseUrl } from '../data/site.js';
 import { PROJECTS } from '../data/projects.js';
+import { setupSkillsExplorer } from './skills-explorer.js';
 import { galleryMarkup, visualMarkup } from './visuals.js';
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
@@ -29,7 +30,7 @@ function setMeta() {
     address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
     worksFor: { '@type': 'Organization', name: SITE_CONFIG.company },
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'American International University-Bangladesh' },
-    sameAs: [SITE_CONFIG.github, SITE_CONFIG.linkedin],
+    sameAs: [SITE_CONFIG.github, SITE_CONFIG.linkedin].filter(Boolean),
     url: baseUrl,
   };
   const script = document.createElement('script');
@@ -88,16 +89,21 @@ function setupClock() {
 function projectCard(project, index) {
   return `<article class="project-card reveal" data-project-card="${project.slug}">
     <div class="project-card-top"><span>0${index + 1} / ${project.type}</span><span>${project.date}</span></div>
+    ${project.team ? '<span class="team-badge">Team project</span>' : ''}
     <div class="project-cover">${visualMarkup(project)}</div>
-    <div><h3>${project.title}</h3><p>${project.outcome}</p></div>
+    <div><h3>${project.title}</h3><p>${project.outcome}</p><p class="project-role">${project.team ? 'Team project' : project.role}</p></div>
     <div class="project-card-footer"><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div><button class="project-open" type="button" data-open-project="${project.slug}">Read system <span aria-hidden="true">↗</span></button></div>
+    <div class="project-link-row">${projectLinksMarkup(project)}</div>
   </article>`;
 }
 
-function linksMarkup(project) {
-  const links = [['live', 'Live product'], ['github', 'GitHub'], ['backend', 'Backend']].filter(([key]) => project.links?.[key]);
-  if (!links.length) return '<span class="muted">Links will appear when available.</span>';
-  return links.map(([key, label]) => `<a class="button button-secondary" href="${project.links[key]}" target="_blank" rel="noreferrer">${label} <span aria-hidden="true">↗</span></a>`).join('');
+function projectLinksMarkup(project) {
+  const labels = {
+    live: ['Live Demo', `Live demo of ${project.title} (opens in new tab)`],
+    backend: ['Backend API', `Backend API for ${project.title} (opens in new tab)`],
+    github: ['GitHub', `GitHub repository for ${project.title} (opens in new tab)`],
+  };
+  return Object.entries(labels).filter(([key]) => project.links?.[key]).map(([key, [label, accessibleLabel]]) => `<a class="button button-secondary project-link" href="${project.links[key]}" target="_blank" rel="noopener noreferrer" aria-label="${accessibleLabel}">${label} <span aria-hidden="true">↗</span></a>`).join('');
 }
 
 function openProject(project) {
@@ -107,7 +113,11 @@ function openProject(project) {
   dialog.dataset.projectDialog = project.slug;
   dialog.setAttribute('aria-labelledby', `dialog-title-${project.slug}`);
   const { caseStudy } = project;
-  dialog.innerHTML = `<div class="dialog-inner"><div><div class="dialog-meta"><span class="dialog-kicker">${project.date} · ${project.type}</span><button class="dialog-close" type="button" data-close-dialog aria-label="Close case study">×</button></div><h2 class="dialog-title" id="dialog-title-${project.slug}">${project.title}</h2><p class="dialog-summary">${project.outcome}</p><div class="dialog-cover">${galleryMarkup(project)}</div></div><div class="dialog-copy"><section class="dialog-section"><h3>Problem</h3><p>${caseStudy.problem}</p></section><section class="dialog-section"><h3>My role</h3><p>${project.role}</p></section><section class="dialog-section"><h3>Approach / architecture</h3><p>${caseStudy.approach}</p><p class="muted">${caseStudy.architecture}</p></section><section class="dialog-section"><h3>Key features</h3><ul>${caseStudy.features.map((feature) => `<li>${feature}</li>`).join('')}</ul></section><section class="dialog-section"><h3>Stack</h3><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div></section><section class="dialog-section"><h3>What I would improve</h3><p>${caseStudy.improve}</p></section><section class="dialog-section"><h3>Links</h3><div class="dialog-links">${linksMarkup(project)}</div></section></div></div>`;
+  const links = projectLinksMarkup(project);
+  const roleCopy = project.contribution || (project.team ? 'Team project; contribution details are intentionally unlisted until provided.' : project.role);
+  const note = caseStudy.note ? `<p class="dialog-note">${caseStudy.note}</p>` : '';
+  const linksSection = links ? `<section class="dialog-section"><h3>Links</h3><div class="dialog-links">${links}</div></section>` : '';
+  dialog.innerHTML = `<div class="dialog-inner"><div><div class="dialog-meta"><span class="dialog-kicker">${project.date} · ${project.type}</span><button class="dialog-close" type="button" data-close-dialog aria-label="Close case study">×</button></div>${project.team ? '<span class="team-badge">Team project</span>' : ''}<h2 class="dialog-title" id="dialog-title-${project.slug}">${project.title}</h2><p class="dialog-summary">${project.outcome}</p><div class="dialog-cover">${galleryMarkup(project)}</div></div><div class="dialog-copy"><section class="dialog-section"><h3>Problem</h3><p>${caseStudy.problem}</p></section><section class="dialog-section"><h3>My role</h3><p>${roleCopy}</p></section><section class="dialog-section"><h3>Approach / architecture</h3><p>${caseStudy.approach}</p><p class="muted">${caseStudy.architecture}</p>${note}</section><section class="dialog-section"><h3>Key features</h3><ul>${caseStudy.features.map((feature) => `<li>${feature}</li>`).join('')}</ul></section><section class="dialog-section"><h3>Stack</h3><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div></section><section class="dialog-section"><h3>What I would improve</h3><p>${caseStudy.improve}</p></section>${linksSection}</div></div>`;
   $('[data-dialog-layer]').append(dialog);
   const close = () => { dialog.close(); dialog.remove(); if (location.hash === `#${project.slug}`) history.replaceState(null, '', `${location.pathname}${location.search}`); lastFocused?.focus(); };
   dialog.addEventListener('click', (event) => { if (event.target === dialog) close(); });
@@ -227,5 +237,6 @@ setupClock();
 setupProjects();
 setupContact();
 setupNavigation();
+setupSkillsExplorer(PROJECTS);
 setupMotion();
 setupScrollState();
