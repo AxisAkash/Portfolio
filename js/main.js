@@ -17,26 +17,7 @@ function setMeta() {
   document.querySelector('meta[name="description"]').content = SITE_META.description;
   document.querySelector('meta[name="keywords"]')?.setAttribute('content', SITE_META.keywords);
   const canonical = $('[data-canonical]');
-  canonical.href = baseUrl;
-  document.querySelectorAll('[property="og:url"], [name="twitter:url"]').forEach((element) => { element.content = baseUrl; });
-  const image = new URL('assets/og-image.png', baseUrl).href;
-  document.querySelectorAll('[property="og:image"], [name="twitter:image"]').forEach((element) => { element.content = image; });
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: SITE_CONFIG.name,
-    jobTitle: SITE_CONFIG.role,
-    email: `mailto:${SITE_CONFIG.email}`,
-    address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
-    worksFor: { '@type': 'Organization', name: SITE_CONFIG.company },
-    alumniOf: { '@type': 'CollegeOrUniversity', name: 'American International University-Bangladesh' },
-    sameAs: [SITE_CONFIG.github, SITE_CONFIG.linkedin].filter(Boolean),
-    url: baseUrl,
-  };
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(schema);
-  document.head.append(script);
+  if (canonical?.href !== baseUrl) console.warn('Static canonical does not match data/site.js');
 }
 
 function setupTheme() {
@@ -59,7 +40,7 @@ function emailMarkup(email) {
 }
 
 function setupIdentity() {
-  setText('[data-availability]', SITE_CONFIG.availability);
+  setText('[data-availability]', SITE_CONFIG.availability || '');
   $$('[data-email]').forEach((element) => {
     element.innerHTML = emailMarkup(SITE_CONFIG.email);
     if (element.tagName === 'A') element.href = `mailto:${SITE_CONFIG.email}`;
@@ -87,12 +68,12 @@ function setupClock() {
 }
 
 function projectCard(project, index) {
-  return `<article class="project-card reveal" data-project-card="${project.slug}">
+  const featured = index < 2 ? ' project-card-featured' : '';
+  return `<article class="project-card${featured} reveal" data-project-card="${project.slug}">
     <div class="project-card-top"><span>0${index + 1} / ${project.type}</span><span>${project.date}</span></div>
     ${project.team ? '<span class="team-badge">Team project</span>' : ''}
     <div class="project-cover">${visualMarkup(project)}</div>
-    <div><h3>${project.title}</h3><p>${project.outcome}</p><p class="project-role">${project.team ? 'Team project' : project.role}</p></div>
-    <div class="project-card-footer"><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div><button class="project-open" type="button" data-open-project="${project.slug}">Read system <span aria-hidden="true">↗</span></button></div>
+    <div class="project-card-body"><div class="project-copy"><h3>${project.title}</h3><p>${project.outcome}</p><p class="project-role">${project.team ? 'Team project; contribution details are intentionally unlisted until provided.' : project.role}</p></div><div class="project-card-footer"><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div><button class="project-open" type="button" data-open-project="${project.slug}">Read system <span aria-hidden="true">↗</span></button></div></div>
     <div class="project-link-row">${projectLinksMarkup(project)}</div>
   </article>`;
 }
@@ -169,7 +150,7 @@ function setupContact() {
     window.setTimeout(() => { status.textContent = ''; }, 2500);
   });
   if (!SITE_CONFIG.formEndpoint) {
-    area.innerHTML = '<div class="email-first"><div><span class="mono-label">Email-first mode</span><h3>Keep it direct.</h3><p>This portfolio has no form endpoint configured. Use the secure mail client button rather than leaving a message in a third-party inbox.</p></div><span class="mono-label">No tracking · no dead end</span></div>';
+    area.innerHTML = `<div class="email-first"><div><span class="mono-label">Email first</span><h3>Keep it direct.</h3><p>Email is the quickest way to start a useful conversation.</p></div><a class="button button-secondary" href="mailto:${SITE_CONFIG.email}">Open mail client <span aria-hidden="true">↗</span></a></div>`;
     return;
   }
   area.innerHTML = `<form data-contact-form novalidate><span class="mono-label">Message</span><h3>Start a conversation.</h3><p>Fields marked required keep the request useful.</p><div class="form-grid"><div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" required autocomplete="name" /><span class="field-error" data-error-for="name"></span></div><div class="form-field"><label for="contact-email">Email</label><input id="contact-email" type="email" name="email" required autocomplete="email" /><span class="field-error" data-error-for="email"></span></div><div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" required></textarea><span class="field-error" data-error-for="message"></span></div><label class="honeypot" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button class="button button-primary" type="submit">Send message <span aria-hidden="true">↗</span></button><p class="form-status" aria-live="polite" data-form-status></p></div></form>`;
@@ -209,7 +190,7 @@ function setupNavigation() {
 
 function setupMotion() {
   const revealItems = $$('.reveal');
-  if (reduceMotion) { revealItems.forEach((item) => item.classList.add('is-visible')); return; }
+  if (reduceMotion) { revealItems.forEach((item) => item.classList.add('is-visible')); $('[data-reveal-lines]')?.classList.add('is-visible'); return; }
   const observer = new IntersectionObserver((entries, instance) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); instance.unobserve(entry.target); } }), { threshold: 0.12 });
   revealItems.forEach((item) => observer.observe(item));
   const heroTitle = $('[data-reveal-lines]');
