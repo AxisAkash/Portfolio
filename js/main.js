@@ -1,5 +1,6 @@
 import { SITE_CONFIG, SITE_META, baseUrl } from '../data/site.js';
 import { PROJECTS } from '../data/projects.js';
+import { setupSkillsExplorer } from './skills-explorer.js';
 import { galleryMarkup, visualMarkup } from './visuals.js';
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
@@ -16,26 +17,7 @@ function setMeta() {
   document.querySelector('meta[name="description"]').content = SITE_META.description;
   document.querySelector('meta[name="keywords"]')?.setAttribute('content', SITE_META.keywords);
   const canonical = $('[data-canonical]');
-  canonical.href = baseUrl;
-  document.querySelectorAll('[property="og:url"], [name="twitter:url"]').forEach((element) => { element.content = baseUrl; });
-  const image = new URL('assets/og-image.png', baseUrl).href;
-  document.querySelectorAll('[property="og:image"], [name="twitter:image"]').forEach((element) => { element.content = image; });
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: SITE_CONFIG.name,
-    jobTitle: SITE_CONFIG.role,
-    email: `mailto:${SITE_CONFIG.email}`,
-    address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
-    worksFor: { '@type': 'Organization', name: SITE_CONFIG.company },
-    alumniOf: { '@type': 'CollegeOrUniversity', name: 'American International University-Bangladesh' },
-    sameAs: [SITE_CONFIG.github, SITE_CONFIG.linkedin],
-    url: baseUrl,
-  };
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.textContent = JSON.stringify(schema);
-  document.head.append(script);
+  if (canonical?.href !== baseUrl) console.warn('Static canonical does not match data/site.js');
 }
 
 function setupTheme() {
@@ -58,7 +40,7 @@ function emailMarkup(email) {
 }
 
 function setupIdentity() {
-  setText('[data-availability]', SITE_CONFIG.availability);
+  setText('[data-availability]', SITE_CONFIG.availability || '');
   $$('[data-email]').forEach((element) => {
     element.innerHTML = emailMarkup(SITE_CONFIG.email);
     if (element.tagName === 'A') element.href = `mailto:${SITE_CONFIG.email}`;
@@ -86,18 +68,23 @@ function setupClock() {
 }
 
 function projectCard(project, index) {
-  return `<article class="project-card reveal" data-project-card="${project.slug}">
+  const featured = index < 2 ? ' project-card-featured' : '';
+  return `<article class="project-card${featured} reveal" data-project-card="${project.slug}">
     <div class="project-card-top"><span>0${index + 1} / ${project.type}</span><span>${project.date}</span></div>
+    ${project.team ? '<span class="team-badge">Team project</span>' : ''}
     <div class="project-cover">${visualMarkup(project)}</div>
-    <div><h3>${project.title}</h3><p>${project.outcome}</p></div>
-    <div class="project-card-footer"><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div><button class="project-open" type="button" data-open-project="${project.slug}">Read system <span aria-hidden="true">↗</span></button></div>
+    <div class="project-card-body"><div class="project-copy"><h3>${project.title}</h3><p>${project.outcome}</p><p class="project-role">${project.team ? 'Team project; contribution details are intentionally unlisted until provided.' : project.role}</p></div><div class="project-card-footer"><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div><button class="project-open" type="button" data-open-project="${project.slug}">Read system <span aria-hidden="true">↗</span></button></div></div>
+    <div class="project-link-row">${projectLinksMarkup(project)}</div>
   </article>`;
 }
 
-function linksMarkup(project) {
-  const links = [['live', 'Live product'], ['github', 'GitHub'], ['backend', 'Backend']].filter(([key]) => project.links?.[key]);
-  if (!links.length) return '<span class="muted">Links will appear when available.</span>';
-  return links.map(([key, label]) => `<a class="button button-secondary" href="${project.links[key]}" target="_blank" rel="noreferrer">${label} <span aria-hidden="true">↗</span></a>`).join('');
+function projectLinksMarkup(project) {
+  const labels = {
+    live: ['Live Demo', `Live demo of ${project.title} (opens in new tab)`],
+    backend: ['Backend API', `Backend API for ${project.title} (opens in new tab)`],
+    github: ['GitHub', `GitHub repository for ${project.title} (opens in new tab)`],
+  };
+  return Object.entries(labels).filter(([key]) => project.links?.[key]).map(([key, [label, accessibleLabel]]) => `<a class="button button-secondary project-link" href="${project.links[key]}" target="_blank" rel="noopener noreferrer" aria-label="${accessibleLabel}">${label} <span aria-hidden="true">↗</span></a>`).join('');
 }
 
 function openProject(project) {
@@ -107,7 +94,11 @@ function openProject(project) {
   dialog.dataset.projectDialog = project.slug;
   dialog.setAttribute('aria-labelledby', `dialog-title-${project.slug}`);
   const { caseStudy } = project;
-  dialog.innerHTML = `<div class="dialog-inner"><div><div class="dialog-meta"><span class="dialog-kicker">${project.date} · ${project.type}</span><button class="dialog-close" type="button" data-close-dialog aria-label="Close case study">×</button></div><h2 class="dialog-title" id="dialog-title-${project.slug}">${project.title}</h2><p class="dialog-summary">${project.outcome}</p><div class="dialog-cover">${galleryMarkup(project)}</div></div><div class="dialog-copy"><section class="dialog-section"><h3>Problem</h3><p>${caseStudy.problem}</p></section><section class="dialog-section"><h3>My role</h3><p>${project.role}</p></section><section class="dialog-section"><h3>Approach / architecture</h3><p>${caseStudy.approach}</p><p class="muted">${caseStudy.architecture}</p></section><section class="dialog-section"><h3>Key features</h3><ul>${caseStudy.features.map((feature) => `<li>${feature}</li>`).join('')}</ul></section><section class="dialog-section"><h3>Stack</h3><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div></section><section class="dialog-section"><h3>What I would improve</h3><p>${caseStudy.improve}</p></section><section class="dialog-section"><h3>Links</h3><div class="dialog-links">${linksMarkup(project)}</div></section></div></div>`;
+  const links = projectLinksMarkup(project);
+  const roleCopy = project.contribution || (project.team ? 'Team project; contribution details are intentionally unlisted until provided.' : project.role);
+  const note = caseStudy.note ? `<p class="dialog-note">${caseStudy.note}</p>` : '';
+  const linksSection = links ? `<section class="dialog-section"><h3>Links</h3><div class="dialog-links">${links}</div></section>` : '';
+  dialog.innerHTML = `<div class="dialog-inner"><div><div class="dialog-meta"><span class="dialog-kicker">${project.date} · ${project.type}</span><button class="dialog-close" type="button" data-close-dialog aria-label="Close case study">×</button></div>${project.team ? '<span class="team-badge">Team project</span>' : ''}<h2 class="dialog-title" id="dialog-title-${project.slug}">${project.title}</h2><p class="dialog-summary">${project.outcome}</p><div class="dialog-cover">${galleryMarkup(project)}</div></div><div class="dialog-copy"><section class="dialog-section"><h3>Problem</h3><p>${caseStudy.problem}</p></section><section class="dialog-section"><h3>My role</h3><p>${roleCopy}</p></section><section class="dialog-section"><h3>Approach / architecture</h3><p>${caseStudy.approach}</p><p class="muted">${caseStudy.architecture}</p>${note}</section><section class="dialog-section"><h3>Key features</h3><ul>${caseStudy.features.map((feature) => `<li>${feature}</li>`).join('')}</ul></section><section class="dialog-section"><h3>Stack</h3><div class="project-stack">${project.stack.map((item) => `<span>${item}</span>`).join('')}</div></section><section class="dialog-section"><h3>What I would improve</h3><p>${caseStudy.improve}</p></section>${linksSection}</div></div>`;
   $('[data-dialog-layer]').append(dialog);
   const close = () => { dialog.close(); dialog.remove(); if (location.hash === `#${project.slug}`) history.replaceState(null, '', `${location.pathname}${location.search}`); lastFocused?.focus(); };
   dialog.addEventListener('click', (event) => { if (event.target === dialog) close(); });
@@ -159,7 +150,7 @@ function setupContact() {
     window.setTimeout(() => { status.textContent = ''; }, 2500);
   });
   if (!SITE_CONFIG.formEndpoint) {
-    area.innerHTML = '<div class="email-first"><div><span class="mono-label">Email-first mode</span><h3>Keep it direct.</h3><p>This portfolio has no form endpoint configured. Use the secure mail client button rather than leaving a message in a third-party inbox.</p></div><span class="mono-label">No tracking · no dead end</span></div>';
+    area.innerHTML = `<div class="email-first"><div><span class="mono-label">Email first</span><h3>Keep it direct.</h3><p>Email is the quickest way to start a useful conversation.</p></div><a class="button button-secondary" href="mailto:${SITE_CONFIG.email}">Open mail client <span aria-hidden="true">↗</span></a></div>`;
     return;
   }
   area.innerHTML = `<form data-contact-form novalidate><span class="mono-label">Message</span><h3>Start a conversation.</h3><p>Fields marked required keep the request useful.</p><div class="form-grid"><div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" required autocomplete="name" /><span class="field-error" data-error-for="name"></span></div><div class="form-field"><label for="contact-email">Email</label><input id="contact-email" type="email" name="email" required autocomplete="email" /><span class="field-error" data-error-for="email"></span></div><div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" required></textarea><span class="field-error" data-error-for="message"></span></div><label class="honeypot" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button class="button button-primary" type="submit">Send message <span aria-hidden="true">↗</span></button><p class="form-status" aria-live="polite" data-form-status></p></div></form>`;
@@ -199,7 +190,7 @@ function setupNavigation() {
 
 function setupMotion() {
   const revealItems = $$('.reveal');
-  if (reduceMotion) { revealItems.forEach((item) => item.classList.add('is-visible')); return; }
+  if (reduceMotion) { revealItems.forEach((item) => item.classList.add('is-visible')); $('[data-reveal-lines]')?.classList.add('is-visible'); return; }
   const observer = new IntersectionObserver((entries, instance) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); instance.unobserve(entry.target); } }), { threshold: 0.12 });
   revealItems.forEach((item) => observer.observe(item));
   const heroTitle = $('[data-reveal-lines]');
@@ -227,5 +218,6 @@ setupClock();
 setupProjects();
 setupContact();
 setupNavigation();
+setupSkillsExplorer(PROJECTS);
 setupMotion();
 setupScrollState();

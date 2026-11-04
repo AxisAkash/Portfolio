@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prerender": "node tools/prerender.mjs"
+  }
+}

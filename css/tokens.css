@@ -2,7 +2,7 @@
   color-scheme: dark;
   --ink: oklch(0.94 0.012 95);
   --ink-soft: oklch(0.76 0.014 95);
-  --ink-faint: oklch(0.61 0.015 95);
+  --ink-faint: oklch(0.69 0.015 95);
   --paper: oklch(0.16 0.018 95);
   --paper-raised: oklch(0.195 0.018 95);
   --paper-deep: oklch(0.125 0.014 95);
@@ -13,8 +13,8 @@
   --accent-soft: oklch(0.82 0.13 155 / 0.12);
   --danger: oklch(0.72 0.16 25);
   --serif: 'Instrument Serif', 'Iowan Old Style', 'Baskerville', Georgia, serif;
-  --sans: 'DM Sans', 'Inter', 'Segoe UI', Arial, sans-serif;
-  --mono: 'DM Mono', 'SFMono-Regular', Consolas, monospace;
+  --sans: 'DM Sans', 'DM Sans Fallback', 'Segoe UI', Arial, sans-serif;
+  --mono: 'DM Mono', 'DM Mono Fallback', Consolas, monospace;
   --size-xs: 0.6875rem;
   --size-sm: 0.8125rem;
   --size-body: clamp(0.95rem, 0.15vw + 0.9rem, 1.05rem);
@@ -40,7 +40,7 @@
   color-scheme: light;
   --ink: oklch(0.19 0.018 95);
   --ink-soft: oklch(0.28 0.02 95);
-  --ink-faint: oklch(0.28 0.018 95);
+  --ink-faint: oklch(0.24 0.018 95);
   --paper: oklch(0.965 0.012 95);
   --paper-raised: oklch(1 0 0);
   --paper-deep: oklch(0.925 0.015 95);

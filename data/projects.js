@@ -6,9 +6,11 @@ export const PROJECTS = [
     date: 'Jul–Oct 2026',
     type: 'Role-based mobile fintech app',
     outcome: 'A four-role credit profile and field-verification workflow for farmer lending.',
-    role: 'Product engineer across the mobile experience and secure backend APIs.',
+    role: 'Team project with contribution details intentionally left unlisted until provided.',
     stack: ['React Native', 'Expo', 'TypeScript', 'Express.js', 'Supabase/PostgreSQL'],
-    links: { live: null, github: null, backend: null },
+    links: { live: null, backend: 'https://sofol-backend.vercel.app', github: 'https://github.com/atik806/MADFinalProject' },
+    team: true,
+    contribution: null,
     visual: { type: 'diagram', diagram: 'roles' },
     caseStudy: {
       problem:
@@ -24,6 +26,7 @@ export const PROJECTS = [
       improve:
         'I would deepen automated test coverage around permission boundaries and make verification states even easier to audit as the product grows.',
       architecture: 'React Native / Expo → Express.js role-aware API → Supabase/PostgreSQL',
+      note: 'The deployed backend link is a JSON REST API behind the mobile app, not a visual web demo.',
     },
   },
   {
@@ -35,7 +38,9 @@ export const PROJECTS = [
     outcome: 'Rental operations organized around authentication, bookings, payment tracking, and history.',
     role: 'Full-stack developer responsible for the MVC application and responsive workflows.',
     stack: ['PHP', 'MySQL', 'MVC', 'HTML/CSS/JS', 'AJAX'],
-    links: { live: null, github: null, backend: null },
+    links: { live: 'https://car-rental-system.fwh.is', backend: null, github: 'https://github.com/AxisAkash/Car-Rent-Management' },
+    team: false,
+    contribution: null,
     visual: { type: 'diagram', diagram: 'mvc' },
     caseStudy: {
       problem:
@@ -62,8 +67,16 @@ export const PROJECTS = [
     outcome: 'Natural-language math translated into an evaluable expression and result.',
     role: 'Developer of the NLP parsing pipeline, model evaluation, and minimal interface.',
     stack: ['Python', 'TensorFlow', 'NLP'],
-    links: { live: null, github: null, backend: null },
-    visual: { type: 'diagram', diagram: 'nlp' },
+    links: { live: 'https://axisakash.github.io/Ai_Calculator/', backend: null, github: 'https://github.com/AxisAkash/Ai_Calculator' },
+    team: false,
+    contribution: null,
+    visual: {
+      type: 'screenshot',
+      files: [
+        { src: 'assets/projects/ai-calculator/desktop.webp', width: 1440, height: 900, alt: 'AI Calculator live interface with calculator controls and final answer panels on desktop' },
+        { src: 'assets/projects/ai-calculator/mobile.webp', width: 390, height: 844, alt: 'AI Calculator live interface with calculator controls and final answer panels on mobile' },
+      ],
+    },
     caseStudy: {
       problem:
         'A calculator can accept a question in the way people naturally ask it, rather than requiring a strict symbolic input format.',
@@ -89,7 +102,9 @@ export const PROJECTS = [
     outcome: 'Tenant, lease, unit, invoice, and payment workflows in one role-aware desktop system.',
     role: 'Developer of the .NET desktop application and SQL Server data workflows.',
     stack: ['C#', '.NET Framework', 'SQL Server'],
-    links: { live: null, github: 'https://github.com/AxisAkash/Rental-Management-System', backend: null },
+    links: { live: null, backend: null, github: 'https://github.com/AxisAkash/Rental-Management-System' },
+    team: false,
+    contribution: null,
     visual: { type: 'diagram', diagram: 'entities' },
     caseStudy: {
       problem:
