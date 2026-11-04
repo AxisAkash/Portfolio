@@ -8,7 +8,7 @@ Editorial engineering portfolio for Rakibul Islam Akash, a software engineer in 
 - CSS custom properties, fluid type, responsive CSS grid
 - Vanilla ES modules
 - GitHub Pages from `main` / root
-- No framework, bundler, or build step
+- No framework, bundler, or runtime build step; one optional Node prerender script for committed HTML
 
 ## Run locally
 
@@ -19,6 +19,16 @@ python -m http.server 4173
 ```
 
 Open `http://localhost:4173/`. ES modules and relative asset paths require a server rather than opening `index.html` directly.
+
+## Regenerate static markup
+
+`index.html` contains committed project cards, skill cards, derived skill counts, and contact basics for crawlers and no-JS visitors. When changing `data/site.js`, `data/projects.js`, or `data/skills.js`, run:
+
+```bash
+npm run prerender
+```
+
+The script updates only the marked sections in `index.html`. It is a development tool, not a production build step. `tools/capture-previews.mjs` is the Playwright helper used to capture verified live-demo previews.
 
 ## Single source of truth
 
@@ -48,7 +58,8 @@ Null, empty, and false values are intentionally hidden by the renderer. There ar
 - [ ] AI Calculator backend URL: `data/projects.js` → `links.backend` is `null`.
 - [ ] Rental live URL: `data/projects.js` → `links.live` is `null`.
 - [ ] Rental backend URL: `data/projects.js` → `links.backend` is `null`.
-- [ ] Project screenshots: each `visual.type` is currently `diagram`. Add files under `assets/projects/<slug>/`, set `visual.type` to `screenshot`, and provide each file's `src`, explicit `width`/`height`, and descriptive `alt` in `visual.files`.
+- [x] AI Calculator screenshots: verified desktop/mobile captures are committed under `assets/projects/ai-calculator/` with explicit dimensions and alt text.
+- [ ] Car Rent screenshots: the supplied free-host URL timed out during browser capture, so the factual system diagram remains in use. Retry `tools/capture-previews.mjs` if the host returns.
 - [ ] Optional Hindi: `data/site.js` → `optional.hindi` is `false`.
 - [ ] Optional Docker & CI/CD: `data/site.js` → `optional.dockerCi` is `false`.
 - [ ] Optional research interests: `data/site.js` → `optional.research` is `false`.
@@ -56,6 +67,8 @@ Null, empty, and false values are intentionally hidden by the renderer. There ar
 ## Skill explorer
 
 `data/skills.js` is the evidence map. Each skill stores the project IDs supported by the CV, or an honest `Coursework`, `Workflow`, or `Tooling` label when it has no project evidence. The explorer derives technology and role-system counts from this data and supports keyboard focus, pointer hover, touch selection, reduced motion, and screen-reader announcements.
+
+SOFOL is marked as a team project. Its optional `contribution` field is `null`, so no authorship claim is rendered until contribution text is supplied.
 
 ## Link health
 
