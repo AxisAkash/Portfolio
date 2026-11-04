@@ -70,7 +70,13 @@ export const PROJECTS = [
     links: { live: 'https://axisakash.github.io/Ai_Calculator/', backend: null, github: 'https://github.com/AxisAkash/Ai_Calculator' },
     team: false,
     contribution: null,
-    visual: { type: 'diagram', diagram: 'nlp' },
+    visual: {
+      type: 'screenshot',
+      files: [
+        { src: 'assets/projects/ai-calculator/desktop.webp', width: 1440, height: 900, alt: 'AI Calculator live interface with calculator controls and final answer panels on desktop' },
+        { src: 'assets/projects/ai-calculator/mobile.webp', width: 390, height: 844, alt: 'AI Calculator live interface with calculator controls and final answer panels on mobile' },
+      ],
+    },
     caseStudy: {
       problem:
         'A calculator can accept a question in the way people naturally ask it, rather than requiring a strict symbolic input format.',
