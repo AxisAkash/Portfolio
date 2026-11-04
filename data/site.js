@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
   role: 'Software Engineer Intern',
   company: 'IBCS-Primax Software (Bangladesh) Ltd.',
   companyShort: 'IBCS-Primax',
-  availability: 'Open to thoughtful software engineering conversations',
+  availability: '',
   resumePath: 'assets/Rakibul_Islam_Akash_CV.pdf',
   formEndpoint: null,
   optional: {
